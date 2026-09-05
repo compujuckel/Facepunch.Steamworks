@@ -57,7 +57,7 @@ namespace Steamworks.Data
 		internal static readonly UGCQueryHandle_t k_UGCQueryHandleInvalid = 0xffffffffffffffff;
 		internal static readonly UGCUpdateHandle_t k_UGCUpdateHandleInvalid = 0xffffffffffffffff;
 		internal static readonly uint kNumUGCResultsPerPage = 50;
-		internal static readonly uint k_cchDeveloperMetadataMax = 5000;
+		internal static readonly uint k_cchDeveloperMetadataMax = 10000;
 		internal static readonly uint INVALID_HTMLBROWSER = 0;
 		internal static readonly InventoryItemId k_SteamItemInstanceIDInvalid = ~default(ulong);
 		internal static readonly SteamInventoryResult_t k_SteamInventoryResultInvalid = - 1;

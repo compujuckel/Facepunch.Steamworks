@@ -9,16 +9,16 @@ namespace Steamworks
 {
 	internal unsafe partial class ISteamApps : SteamInterface
 	{
-		public const string Version = "STEAMAPPS_INTERFACE_VERSION008";
+		public const string Version = "STEAMAPPS_INTERFACE_VERSION009";
 		
 		internal ISteamApps( bool IsGameServer )
 		{
 			SetupInterface( IsGameServer );
 		}
 		
-		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamApps_v008", CallingConvention = Platform.CC)]
-		internal static extern IntPtr SteamAPI_SteamApps_v008();
-		public override IntPtr GetUserInterfacePointer() => SteamAPI_SteamApps_v008();
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamApps_v009", CallingConvention = Platform.CC)]
+		internal static extern IntPtr SteamAPI_SteamApps_v009();
+		public override IntPtr GetUserInterfacePointer() => SteamAPI_SteamApps_v009();
 		
 		
 		#region FunctionMeta
@@ -386,14 +386,14 @@ namespace Steamworks
 		#region FunctionMeta
 		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamApps_GetBetaInfo", CallingConvention = Platform.CC)]
 		[return: MarshalAs( UnmanagedType.I1 )]
-		private static extern bool _GetBetaInfo( IntPtr self, int iBetaIndex, ref uint punFlags, ref uint punBuildID, IntPtr pchBetaName, int cchBetaName, IntPtr pchDescription, int cchDescription );
+		private static extern bool _GetBetaInfo( IntPtr self, int iBetaIndex, ref uint punFlags, ref uint punBuildID, IntPtr pchBetaName, int cchBetaName, IntPtr pchDescription, int cchDescription, ref uint punLastUpdated );
 		
 		#endregion
-		internal bool GetBetaInfo( int iBetaIndex, ref uint punFlags, ref uint punBuildID, out string pchBetaName, out string pchDescription )
+		internal bool GetBetaInfo( int iBetaIndex, ref uint punFlags, ref uint punBuildID, out string pchBetaName, out string pchDescription, ref uint punLastUpdated )
 		{
 			using var mem__pchBetaName = Helpers.TakeMemory();
 			using var mem__pchDescription = Helpers.TakeMemory();
-			var returnValue = _GetBetaInfo( Self, iBetaIndex, ref punFlags, ref punBuildID, mem__pchBetaName, (1024 * 32), mem__pchDescription, (1024 * 32) );
+			var returnValue = _GetBetaInfo( Self, iBetaIndex, ref punFlags, ref punBuildID, mem__pchBetaName, (1024 * 32), mem__pchDescription, (1024 * 32), ref punLastUpdated );
 			pchBetaName = Helpers.MemoryToString( mem__pchBetaName );
 			pchDescription = Helpers.MemoryToString( mem__pchDescription );
 			return returnValue;
@@ -410,6 +410,26 @@ namespace Steamworks
 			using var str__pchBetaName = new Utf8StringToNative( pchBetaName );
 			var returnValue = _SetActiveBeta( Self, str__pchBetaName.Pointer );
 			return returnValue;
+		}
+		
+		#region FunctionMeta
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamApps_SetGamePerformanceSetting", CallingConvention = Platform.CC)]
+		private static extern void _SetGamePerformanceSetting( IntPtr self, GamePerformanceSetting setting );
+		
+		#endregion
+		internal void SetGamePerformanceSetting( GamePerformanceSetting setting )
+		{
+			_SetGamePerformanceSetting( Self, setting );
+		}
+		
+		#region FunctionMeta
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamApps_SetGameRenderResolution", CallingConvention = Platform.CC)]
+		private static extern void _SetGameRenderResolution( IntPtr self, uint unWidth, uint unHeight );
+		
+		#endregion
+		internal void SetGameRenderResolution( uint unWidth, uint unHeight )
+		{
+			_SetGameRenderResolution( Self, unWidth, unHeight );
 		}
 		
 	}

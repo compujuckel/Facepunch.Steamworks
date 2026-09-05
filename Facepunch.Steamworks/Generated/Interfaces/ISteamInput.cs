@@ -9,16 +9,16 @@ namespace Steamworks
 {
 	internal unsafe partial class ISteamInput : SteamInterface
 	{
-		public const string Version = "SteamInput006";
+		public const string Version = "SteamInput007";
 		
 		internal ISteamInput( bool IsGameServer )
 		{
 			SetupInterface( IsGameServer );
 		}
 		
-		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamInput_v006", CallingConvention = Platform.CC)]
-		internal static extern IntPtr SteamAPI_SteamInput_v006();
-		public override IntPtr GetUserInterfacePointer() => SteamAPI_SteamInput_v006();
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamInput_v007", CallingConvention = Platform.CC)]
+		internal static extern IntPtr SteamAPI_SteamInput_v007();
+		public override IntPtr GetUserInterfacePointer() => SteamAPI_SteamInput_v007();
 		
 		
 		#region FunctionMeta

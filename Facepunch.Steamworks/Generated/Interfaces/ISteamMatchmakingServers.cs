@@ -9,16 +9,16 @@ namespace Steamworks
 {
 	internal unsafe partial class ISteamMatchmakingServers : SteamInterface
 	{
-		public const string Version = "SteamMatchMakingServers002";
+		public const string Version = "SteamMatchMakingServers003";
 		
 		internal ISteamMatchmakingServers( bool IsGameServer )
 		{
 			SetupInterface( IsGameServer );
 		}
 		
-		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamMatchmakingServers_v002", CallingConvention = Platform.CC)]
-		internal static extern IntPtr SteamAPI_SteamMatchmakingServers_v002();
-		public override IntPtr GetUserInterfacePointer() => SteamAPI_SteamMatchmakingServers_v002();
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamMatchmakingServers_v003", CallingConvention = Platform.CC)]
+		internal static extern IntPtr SteamAPI_SteamMatchmakingServers_v003();
+		public override IntPtr GetUserInterfacePointer() => SteamAPI_SteamMatchmakingServers_v003();
 		
 		
 		#region FunctionMeta
@@ -191,6 +191,17 @@ namespace Steamworks
 		internal HServerQuery ServerRules( uint unIP, ushort usPort, IntPtr pRequestServersResponse )
 		{
 			var returnValue = _ServerRules( Self, unIP, usPort, pRequestServersResponse );
+			return returnValue;
+		}
+		
+		#region FunctionMeta
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamMatchmakingServers_ServerFriends", CallingConvention = Platform.CC)]
+		private static extern HServerQuery _ServerFriends( IntPtr self, uint unIP, ushort usPort, IntPtr pRequestServersResponse );
+		
+		#endregion
+		internal HServerQuery ServerFriends( uint unIP, ushort usPort, IntPtr pRequestServersResponse )
+		{
+			var returnValue = _ServerFriends( Self, unIP, usPort, pRequestServersResponse );
 			return returnValue;
 		}
 		

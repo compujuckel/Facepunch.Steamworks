@@ -286,9 +286,91 @@ namespace Steamworks
 
 		/// <summary>
 		/// Gets whether or not Steam itself is running on the Steam Deck.
+		/// 
+		///	This method is intended to be used for usage analytics, support, diagnostic and other non-functional decisions. If your process
+		/// needs to make a feature or device capability related decision, the Steamworks SDK exposes a set of other methods. Using one of these
+		/// alternate methods will enable your game to run correctly on future versions of Steam hardware where this method would return a
+		/// hardware type not present in old SDK versions.
+		///
+		///
+		/// Some alternate methods include:
+		/// <list type="bullet">
+		/// <item>
+		/// <description><see cref="SteamHardwareDefaultConfig"/></description>
+		/// </item>
+		/// <item>
+		/// <description><see cref="IsSteamInBigPictureMode"/></description>
+		/// </item>
+		/// <item>
+		/// <description><see cref="IsRunningUnderProton"/></description>
+		/// </item>
+		/// <item>
+		/// <description><see cref="IsSteamRunningInVR"/></description>
+		/// </item>
+		/// <item>
+		/// <description><see cref="CurrentBatteryPower"/></description>
+		/// </item>
+		/// <item>
+		/// <description><see cref="SteamInput.Controllers"/></description>
+		/// </item>
+		/// </list>
 		/// </summary>
-		public static bool IsRunningOnSteamDeck => Internal.IsSteamRunningOnSteamDeck();
+		public static SteamHardwareType IsRunningOnSteamHardware => Internal.IsRunningOnSteamHardware();
 
+		/// <summary>
+		/// Returns <see langword="true"/> if running under the Proton compatibility layer.
+		/// </summary>
+		public static bool IsRunningUnderProton => Internal.IsRunningUnderProton();
+
+
+		/// <summary>
+		/// Use this method to help choose default game settings (video and other) that you have tuned for specific Steam hardware. It also enables
+		/// changing your default game settings on future Steam hardware without needing to recompile your game.
+		///
+		/// This method returns an ESteamHardwareDefaultConfig, which has two categories of values:
+		/// <list type="bullet">
+		/// <item>
+		/// <description>Machine specific values: Map each of these values to a setting configuration tuned for that device.</description>
+		/// </item>
+		/// <item>
+		/// <description>
+		///	General values (low, medium, high, max): Map these values to one of your game's user selectable setting presets. If your game has less
+		/// than 4 presets, it is expected that multiple values might map to the same preset. For example, a game with 3 presets might map high and
+		/// max to the game's 'high' user preset. For games that only have 1 preset and run great on any device, low, medium, high and max might all
+		/// be mapped to that single preset.
+		/// </description>
+		/// </item>
+		/// </list>
+		///
+		/// By default, this method will return a value corresponding to the device type returned by ISteamUtils::IsRunningOnSteamHardware(), such
+		/// as returning k_ESteamHardwareDefaultConfigSteamDeck when running on a Steam Deck. It may also return a configuration value for 3rd party
+		/// hardware that has similar performance characteristics to Steam hardware, such as returning k_ESteamHardwareDefaultConfigSteamDeck when
+		/// running on a Legion Go S.
+		///
+		/// You can also change what value the Steam Client returns per device through the Steamworks Partner Site. This allows you to customize the
+		/// default configuration used on future Steam hardware without recompiling your game. For example, if your game runs well on Steam Machine
+		/// using your 'high' user preset, but was released before that device became available, you could configure this method to return
+		/// k_ESteamHardwareDefaultConfigHigh when run on those devices. Similarly if your game was released before Steam Frame, you could configure
+		/// this method to return k_ESteamHardwareDefaultConfigSteamDeck so that when your game is run in 2d mode, it uses your tuned Steam Deck
+		/// presets.
+		///
+		/// The following example covers a common approach to choosing default settings when running on Steam hardware:
+		/// <list type="number">
+		/// <item>
+		/// <description>Call <see cref="SteamHardwareDefaultConfig"/></description>
+		/// </item>
+		/// <item>
+		/// <description>If the returned value is for hardware that you have a known configuration for, use a tuned matching configuration</description>
+		/// </item>
+		/// <item>
+		/// <description>If the returned value is low, medium, high or max, use a matching user preset</description>
+		/// </item>
+		/// <item>
+		/// <description>If the returned value had no match, fall back to your default setting heuristics</description>
+		/// </item>
+		/// </list>
+		/// </summary>
+		public static SteamHardwareDefaultConfig SteamHardwareDefaultConfig => Internal.GetSteamHardwareDefaultConfig();
 
 		/// <summary>
 		/// In game launchers that don't have controller support: You can call this to have 

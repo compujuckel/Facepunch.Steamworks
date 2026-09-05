@@ -354,7 +354,7 @@ struct UserAchievementStored_t
 	enum { k_iCallback = k_iSteamUserStatsCallbacks + 3 };
 
 	uint64		m_nGameID;				// Game this is for
-	bool		m_bGroupAchievement;	// if this is a "group" achievement
+	bool		m_bGroupAchievement;	// unused. if this is a "group" achievement
 	char		m_rgchAchievementName[k_cchStatNameMax];		// name of the achievement
 	uint32		m_nCurProgress;			// current progress towards the achievement
 	uint32		m_nMaxProgress;			// "out of" this many
@@ -456,19 +456,6 @@ struct LeaderboardUGCSet_t
 	enum { k_iCallback = k_iSteamUserStatsCallbacks + 11 };
 	EResult m_eResult;				// The result of the operation
 	SteamLeaderboard_t m_hSteamLeaderboard;	// the leaderboard handle that was
-};
-
-
-//-----------------------------------------------------------------------------
-// Purpose: callback indicating that PS3 trophies have been installed
-//-----------------------------------------------------------------------------
-struct PS3TrophiesInstalled_t
-{
-	enum { k_iCallback = k_iSteamUserStatsCallbacks + 12 };
-	uint64	m_nGameID;				// Game these stats are for
-	EResult m_eResult;				// The result of the operation
-	uint64 m_ulRequiredDiskSpace;	// If m_eResult is k_EResultDiskFull, will contain the amount of space needed to install trophies
-
 };
 
 

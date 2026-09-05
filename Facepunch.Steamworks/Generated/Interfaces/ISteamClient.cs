@@ -236,18 +236,6 @@ namespace Steamworks
 		}
 		
 		#region FunctionMeta
-		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamClient_GetISteamGameSearch", CallingConvention = Platform.CC)]
-		private static extern IntPtr _GetISteamGameSearch( IntPtr self, HSteamUser hSteamuser, HSteamPipe hSteamPipe, IntPtr pchVersion );
-		
-		#endregion
-		internal IntPtr GetISteamGameSearch( HSteamUser hSteamuser, HSteamPipe hSteamPipe, string pchVersion )
-		{
-			using var str__pchVersion = new Utf8StringToNative( pchVersion );
-			var returnValue = _GetISteamGameSearch( Self, hSteamuser, hSteamPipe, str__pchVersion.Pointer );
-			return returnValue;
-		}
-		
-		#region FunctionMeta
 		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamClient_GetIPCCallCount", CallingConvention = Platform.CC)]
 		private static extern uint _GetIPCCallCount( IntPtr self );
 		
@@ -325,18 +313,6 @@ namespace Steamworks
 		{
 			using var str__pchVersion = new Utf8StringToNative( pchVersion );
 			var returnValue = _GetISteamMusic( Self, hSteamuser, hSteamPipe, str__pchVersion.Pointer );
-			return returnValue;
-		}
-		
-		#region FunctionMeta
-		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamClient_GetISteamMusicRemote", CallingConvention = Platform.CC)]
-		private static extern IntPtr _GetISteamMusicRemote( IntPtr self, HSteamUser hSteamuser, HSteamPipe hSteamPipe, IntPtr pchVersion );
-		
-		#endregion
-		internal IntPtr GetISteamMusicRemote( HSteamUser hSteamuser, HSteamPipe hSteamPipe, string pchVersion )
-		{
-			using var str__pchVersion = new Utf8StringToNative( pchVersion );
-			var returnValue = _GetISteamMusicRemote( Self, hSteamuser, hSteamPipe, str__pchVersion.Pointer );
 			return returnValue;
 		}
 		

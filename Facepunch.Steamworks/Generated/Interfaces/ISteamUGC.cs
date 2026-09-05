@@ -9,19 +9,19 @@ namespace Steamworks
 {
 	internal unsafe partial class ISteamUGC : SteamInterface
 	{
-		public const string Version = "STEAMUGC_INTERFACE_VERSION020";
+		public const string Version = "STEAMUGC_INTERFACE_VERSION021";
 		
 		internal ISteamUGC( bool IsGameServer )
 		{
 			SetupInterface( IsGameServer );
 		}
 		
-		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamUGC_v020", CallingConvention = Platform.CC)]
-		internal static extern IntPtr SteamAPI_SteamUGC_v020();
-		public override IntPtr GetUserInterfacePointer() => SteamAPI_SteamUGC_v020();
-		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamGameServerUGC_v020", CallingConvention = Platform.CC)]
-		internal static extern IntPtr SteamAPI_SteamGameServerUGC_v020();
-		public override IntPtr GetServerInterfacePointer() => SteamAPI_SteamGameServerUGC_v020();
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamUGC_v021", CallingConvention = Platform.CC)]
+		internal static extern IntPtr SteamAPI_SteamUGC_v021();
+		public override IntPtr GetUserInterfacePointer() => SteamAPI_SteamUGC_v021();
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamGameServerUGC_v021", CallingConvention = Platform.CC)]
+		internal static extern IntPtr SteamAPI_SteamGameServerUGC_v021();
+		public override IntPtr GetServerInterfacePointer() => SteamAPI_SteamGameServerUGC_v021();
 		
 		
 		#region FunctionMeta
@@ -929,23 +929,23 @@ namespace Steamworks
 		
 		#region FunctionMeta
 		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamUGC_GetNumSubscribedItems", CallingConvention = Platform.CC)]
-		private static extern uint _GetNumSubscribedItems( IntPtr self );
+		private static extern uint _GetNumSubscribedItems( IntPtr self, [MarshalAs( UnmanagedType.U1 )] bool bIncludeLocallyDisabled );
 		
 		#endregion
-		internal uint GetNumSubscribedItems()
+		internal uint GetNumSubscribedItems( [MarshalAs( UnmanagedType.U1 )] bool bIncludeLocallyDisabled )
 		{
-			var returnValue = _GetNumSubscribedItems( Self );
+			var returnValue = _GetNumSubscribedItems( Self, bIncludeLocallyDisabled );
 			return returnValue;
 		}
 		
 		#region FunctionMeta
 		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamUGC_GetSubscribedItems", CallingConvention = Platform.CC)]
-		private static extern uint _GetSubscribedItems( IntPtr self, [In,Out] PublishedFileId[]  pvecPublishedFileID, uint cMaxEntries );
+		private static extern uint _GetSubscribedItems( IntPtr self, [In,Out] PublishedFileId[]  pvecPublishedFileID, uint cMaxEntries, [MarshalAs( UnmanagedType.U1 )] bool bIncludeLocallyDisabled );
 		
 		#endregion
-		internal uint GetSubscribedItems( [In,Out] PublishedFileId[]  pvecPublishedFileID, uint cMaxEntries )
+		internal uint GetSubscribedItems( [In,Out] PublishedFileId[]  pvecPublishedFileID, uint cMaxEntries, [MarshalAs( UnmanagedType.U1 )] bool bIncludeLocallyDisabled )
 		{
-			var returnValue = _GetSubscribedItems( Self, pvecPublishedFileID, cMaxEntries );
+			var returnValue = _GetSubscribedItems( Self, pvecPublishedFileID, cMaxEntries, bIncludeLocallyDisabled );
 			return returnValue;
 		}
 		
@@ -1151,6 +1151,64 @@ namespace Steamworks
 		internal uint GetUserContentDescriptorPreferences( [In,Out] UGCContentDescriptorID[]  pvecDescriptors, uint cMaxEntries )
 		{
 			var returnValue = _GetUserContentDescriptorPreferences( Self, pvecDescriptors, cMaxEntries );
+			return returnValue;
+		}
+		
+		#region FunctionMeta
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamUGC_SetItemsDisabledLocally", CallingConvention = Platform.CC)]
+		[return: MarshalAs( UnmanagedType.I1 )]
+		private static extern bool _SetItemsDisabledLocally( IntPtr self, [In,Out] PublishedFileId[]  pvecPublishedFileIDs, uint unNumPublishedFileIDs, [MarshalAs( UnmanagedType.U1 )] bool bDisabledLocally );
+		
+		#endregion
+		internal bool SetItemsDisabledLocally( [In,Out] PublishedFileId[]  pvecPublishedFileIDs, uint unNumPublishedFileIDs, [MarshalAs( UnmanagedType.U1 )] bool bDisabledLocally )
+		{
+			var returnValue = _SetItemsDisabledLocally( Self, pvecPublishedFileIDs, unNumPublishedFileIDs, bDisabledLocally );
+			return returnValue;
+		}
+		
+		#region FunctionMeta
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamUGC_SetSubscriptionsLoadOrder", CallingConvention = Platform.CC)]
+		[return: MarshalAs( UnmanagedType.I1 )]
+		private static extern bool _SetSubscriptionsLoadOrder( IntPtr self, [In,Out] PublishedFileId[]  pvecPublishedFileIDs, uint unNumPublishedFileIDs );
+		
+		#endregion
+		internal bool SetSubscriptionsLoadOrder( [In,Out] PublishedFileId[]  pvecPublishedFileIDs, uint unNumPublishedFileIDs )
+		{
+			var returnValue = _SetSubscriptionsLoadOrder( Self, pvecPublishedFileIDs, unNumPublishedFileIDs );
+			return returnValue;
+		}
+		
+		#region FunctionMeta
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamUGC_MarkDownloadedItemAsUnused", CallingConvention = Platform.CC)]
+		[return: MarshalAs( UnmanagedType.I1 )]
+		private static extern bool _MarkDownloadedItemAsUnused( IntPtr self, PublishedFileId nPublishedFileID );
+		
+		#endregion
+		internal bool MarkDownloadedItemAsUnused( PublishedFileId nPublishedFileID )
+		{
+			var returnValue = _MarkDownloadedItemAsUnused( Self, nPublishedFileID );
+			return returnValue;
+		}
+		
+		#region FunctionMeta
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamUGC_GetNumDownloadedItems", CallingConvention = Platform.CC)]
+		private static extern uint _GetNumDownloadedItems( IntPtr self );
+		
+		#endregion
+		internal uint GetNumDownloadedItems()
+		{
+			var returnValue = _GetNumDownloadedItems( Self );
+			return returnValue;
+		}
+		
+		#region FunctionMeta
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamUGC_GetDownloadedItems", CallingConvention = Platform.CC)]
+		private static extern uint _GetDownloadedItems( IntPtr self, [In,Out] PublishedFileId[]  pvecPublishedFileIDs, uint cMaxEntries );
+		
+		#endregion
+		internal uint GetDownloadedItems( [In,Out] PublishedFileId[]  pvecPublishedFileIDs, uint cMaxEntries )
+		{
+			var returnValue = _GetDownloadedItems( Self, pvecPublishedFileIDs, cMaxEntries );
 			return returnValue;
 		}
 		

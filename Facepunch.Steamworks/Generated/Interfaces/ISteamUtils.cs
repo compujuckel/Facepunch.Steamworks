@@ -9,19 +9,19 @@ namespace Steamworks
 {
 	internal unsafe partial class ISteamUtils : SteamInterface
 	{
-		public const string Version = "SteamUtils010";
+		public const string Version = "SteamUtils011";
 		
 		internal ISteamUtils( bool IsGameServer )
 		{
 			SetupInterface( IsGameServer );
 		}
 		
-		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamUtils_v010", CallingConvention = Platform.CC)]
-		internal static extern IntPtr SteamAPI_SteamUtils_v010();
-		public override IntPtr GetUserInterfacePointer() => SteamAPI_SteamUtils_v010();
-		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamGameServerUtils_v010", CallingConvention = Platform.CC)]
-		internal static extern IntPtr SteamAPI_SteamGameServerUtils_v010();
-		public override IntPtr GetServerInterfacePointer() => SteamAPI_SteamGameServerUtils_v010();
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamUtils_v011", CallingConvention = Platform.CC)]
+		internal static extern IntPtr SteamAPI_SteamUtils_v011();
+		public override IntPtr GetUserInterfacePointer() => SteamAPI_SteamUtils_v011();
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamGameServerUtils_v011", CallingConvention = Platform.CC)]
+		internal static extern IntPtr SteamAPI_SteamGameServerUtils_v011();
+		public override IntPtr GetServerInterfacePointer() => SteamAPI_SteamGameServerUtils_v011();
 		
 		
 		#region FunctionMeta
@@ -393,18 +393,6 @@ namespace Steamworks
 		}
 		
 		#region FunctionMeta
-		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamUtils_IsSteamRunningOnSteamDeck", CallingConvention = Platform.CC)]
-		[return: MarshalAs( UnmanagedType.I1 )]
-		private static extern bool _IsSteamRunningOnSteamDeck( IntPtr self );
-		
-		#endregion
-		internal bool IsSteamRunningOnSteamDeck()
-		{
-			var returnValue = _IsSteamRunningOnSteamDeck( Self );
-			return returnValue;
-		}
-		
-		#region FunctionMeta
 		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamUtils_ShowFloatingGamepadTextInput", CallingConvention = Platform.CC)]
 		[return: MarshalAs( UnmanagedType.I1 )]
 		private static extern bool _ShowFloatingGamepadTextInput( IntPtr self, TextInputMode eKeyboardMode, int nTextFieldXPosition, int nTextFieldYPosition, int nTextFieldWidth, int nTextFieldHeight );
@@ -447,6 +435,40 @@ namespace Steamworks
 		internal bool DismissGamepadTextInput()
 		{
 			var returnValue = _DismissGamepadTextInput( Self );
+			return returnValue;
+		}
+		
+		#region FunctionMeta
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamUtils_IsRunningOnSteamHardware", CallingConvention = Platform.CC)]
+		private static extern SteamHardwareType _IsRunningOnSteamHardware( IntPtr self );
+		
+		#endregion
+		internal SteamHardwareType IsRunningOnSteamHardware()
+		{
+			var returnValue = _IsRunningOnSteamHardware( Self );
+			return returnValue;
+		}
+		
+		#region FunctionMeta
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamUtils_GetSteamHardwareDefaultConfig", CallingConvention = Platform.CC)]
+		private static extern SteamHardwareDefaultConfig _GetSteamHardwareDefaultConfig( IntPtr self );
+		
+		#endregion
+		internal SteamHardwareDefaultConfig GetSteamHardwareDefaultConfig()
+		{
+			var returnValue = _GetSteamHardwareDefaultConfig( Self );
+			return returnValue;
+		}
+		
+		#region FunctionMeta
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamUtils_IsRunningUnderProton", CallingConvention = Platform.CC)]
+		[return: MarshalAs( UnmanagedType.I1 )]
+		private static extern bool _IsRunningUnderProton( IntPtr self );
+		
+		#endregion
+		internal bool IsRunningUnderProton()
+		{
+			var returnValue = _IsRunningUnderProton( Self );
 			return returnValue;
 		}
 		

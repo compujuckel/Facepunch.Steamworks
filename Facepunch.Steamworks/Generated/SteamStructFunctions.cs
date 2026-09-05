@@ -17,6 +17,10 @@ namespace Steamworks.Data
 		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_gameserveritem_t_SetName", CallingConvention = Platform.CC)]
 		internal static extern void InternalSetName( ref gameserveritem_t self, IntPtr pName );
 		
+		[return: MarshalAs( UnmanagedType.I1 )]
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_gameserveritem_t_IsEqualTo", CallingConvention = Platform.CC)]
+		internal static extern bool InternalIsEqualTo( ref gameserveritem_t self, ref gameserveritem_t rhs );
+		
 	}
 	
 	internal partial struct MatchMakingKeyValuePair
@@ -64,6 +68,10 @@ namespace Steamworks.Data
 		
 		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_servernetadr_t_Assign", CallingConvention = Platform.CC)]
 		internal static extern void InternalAssign( ref servernetadr_t self, ref servernetadr_t that );
+		
+		[return: MarshalAs( UnmanagedType.I1 )]
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_servernetadr_t_IsEqualTo", CallingConvention = Platform.CC)]
+		internal static extern bool InternalIsEqualTo( ref servernetadr_t self, ref servernetadr_t rhs );
 		
 	}
 	

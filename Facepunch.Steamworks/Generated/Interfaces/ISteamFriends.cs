@@ -9,16 +9,16 @@ namespace Steamworks
 {
 	internal unsafe partial class ISteamFriends : SteamInterface
 	{
-		public const string Version = "SteamFriends017";
+		public const string Version = "SteamFriends018";
 		
 		internal ISteamFriends( bool IsGameServer )
 		{
 			SetupInterface( IsGameServer );
 		}
 		
-		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamFriends_v017", CallingConvention = Platform.CC)]
-		internal static extern IntPtr SteamAPI_SteamFriends_v017();
-		public override IntPtr GetUserInterfacePointer() => SteamAPI_SteamFriends_v017();
+		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_SteamFriends_v018", CallingConvention = Platform.CC)]
+		internal static extern IntPtr SteamAPI_SteamFriends_v018();
+		public override IntPtr GetUserInterfacePointer() => SteamAPI_SteamFriends_v018();
 		
 		
 		#region FunctionMeta
@@ -30,18 +30,6 @@ namespace Steamworks
 		{
 			var returnValue = _GetPersonaName( Self );
 			return returnValue;
-		}
-		
-		#region FunctionMeta
-		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamFriends_SetPersonaName", CallingConvention = Platform.CC)]
-		private static extern SteamAPICall_t _SetPersonaName( IntPtr self, IntPtr pchPersonaName );
-		
-		#endregion
-		internal CallResult<SetPersonaNameResponse_t> SetPersonaName( string pchPersonaName )
-		{
-			using var str__pchPersonaName = new Utf8StringToNative( pchPersonaName );
-			var returnValue = _SetPersonaName( Self, str__pchPersonaName.Pointer );
-			return new CallResult<SetPersonaNameResponse_t>( returnValue, IsServer );
 		}
 		
 		#region FunctionMeta
@@ -481,17 +469,6 @@ namespace Steamworks
 		internal SteamId GetClanOfficerByIndex( SteamId steamIDClan, int iOfficer )
 		{
 			var returnValue = _GetClanOfficerByIndex( Self, steamIDClan, iOfficer );
-			return returnValue;
-		}
-		
-		#region FunctionMeta
-		[DllImport( Platform.LibraryName, EntryPoint = "SteamAPI_ISteamFriends_GetUserRestrictions", CallingConvention = Platform.CC)]
-		private static extern uint _GetUserRestrictions( IntPtr self );
-		
-		#endregion
-		internal uint GetUserRestrictions()
-		{
-			var returnValue = _GetUserRestrictions( Self );
 			return returnValue;
 		}
 		
