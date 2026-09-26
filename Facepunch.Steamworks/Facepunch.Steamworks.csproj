@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<AssemblyName>Facepunch.Steamworks</AssemblyName>
+		<TargetFramework>net11.0</TargetFramework>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>	
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<RootNamespace>Steamworks</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Authors>Garry Newman</Authors>
+		<PackageId>compujuckel.Facepunch.Steamworks</PackageId>
+		<PackageDescription>Steamworks implementation with an emphasis on making things easy.</PackageDescription>
+		<PackageProjectUrl>https://github.com/compujuckel/Facepunch.Steamworks</PackageProjectUrl>
+		<PackageIcon>Facepunch.Steamworks.jpg</PackageIcon>
+		<PackageTags>facepunch;steam;unity;steamworks;valve</PackageTags>
+		<LangVersion>10</LangVersion>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/compujuckel/Facepunch.Steamworks.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
+  
+	<ItemGroup>
+		<None Include="Facepunch.Steamworks.jpg">
+			<Pack>true</Pack>
+			<PackagePath>/</PackagePath>
+		</None>
+		<None Update="runtimes/win-x64/native/steam_api.dll">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		  <Pack>true</Pack>
+		  <PackagePath>runtimes/win-x64/native/steam_api.dll</PackagePath>
+		</None>
+        <None Update="runtimes/linux-x64/native/libsteam_api.so">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <Pack>true</Pack>
+            <PackagePath>runtimes/linux-x64/native/libsteam_api.so</PackagePath>
+        </None>
+        <None Update="runtimes/linux-arm64/native/libsteam_api.so">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+            <Pack>true</Pack>
+            <PackagePath>runtimes/linux-arm64/native/libsteam_api.so</PackagePath>
+        </None>
+	</ItemGroup>
+
+	<Import Project="Facepunch.Steamworks.targets" />
+
+</Project>
