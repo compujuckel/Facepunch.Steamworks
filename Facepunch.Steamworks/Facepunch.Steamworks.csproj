@@ -28,20 +28,10 @@
 			<Pack>true</Pack>
 			<PackagePath>/</PackagePath>
 		</None>
-		<None Update="runtimes/win-x64/native/steam_api.dll">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <Pack>true</Pack>
-		  <PackagePath>runtimes/win-x64/native/steam_api.dll</PackagePath>
-		</None>
-        <None Update="runtimes/linux-x64/native/libsteam_api.so">
+        <None Update="runtimes/**/native/*">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <Pack>true</Pack>
-            <PackagePath>runtimes/linux-x64/native/libsteam_api.so</PackagePath>
-        </None>
-        <None Update="runtimes/linux-arm64/native/libsteam_api.so">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-            <Pack>true</Pack>
-            <PackagePath>runtimes/linux-arm64/native/libsteam_api.so</PackagePath>
+            <PackagePath>%(RelativePath)</PackagePath>
         </None>
 	</ItemGroup>
 
